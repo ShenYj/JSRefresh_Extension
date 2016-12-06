@@ -50,12 +50,13 @@ static CGFloat const kRigthImageViewHeight = 60.f;
     
     switch (refreshStatus) {
         case JSRefreshStatusNormal:
-            
+            self.descriptionLabel.text = @"继续使劲拉...";
             break;
         case JSRefreshStatusPulling:
-            
+            self.descriptionLabel.text = @"松手将刷新...";
             break;
         case JSRefreshStatusWillRefresh:
+            self.descriptionLabel.text = @"正在刷新中...";
             [self.indicatorView startAnimating];
             
             break;

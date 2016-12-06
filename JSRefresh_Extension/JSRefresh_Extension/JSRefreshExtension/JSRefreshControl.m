@@ -95,7 +95,7 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     } else {
         if (self.refreshView.refreshStatus == JSRefreshStatusPulling ) {
             NSLog(@"准备开始刷新");
-            self.refreshView.refreshStatus = JSRefreshStatusNormal;
+            self.refreshView.refreshStatus = JSRefreshStatusWillRefresh;
         }
     }
     
