@@ -54,9 +54,10 @@ static CGFloat const kRigthImageViewHeight = 60.f;
     switch (refreshStatus) {
         case JSRefreshStatusNormal:
             {
+                self.leftImageView.hidden = NO;
+                [self.indicatorView stopAnimating];
                 self.descriptionLabel.text = @"继续使劲拉...";
                 [UIView animateWithDuration:0.25 animations:^{
-                    
                     self.leftImageView.transform = CGAffineTransformIdentity;
                 }];
             }
@@ -71,8 +72,8 @@ static CGFloat const kRigthImageViewHeight = 60.f;
             }
             break;
         case JSRefreshStatusWillRefresh:
-            self.descriptionLabel.text = @"正在刷新中...";
             self.leftImageView.hidden = YES;
+            self.descriptionLabel.text = @"正在刷新中...";
             [self.indicatorView startAnimating];
             
             break;

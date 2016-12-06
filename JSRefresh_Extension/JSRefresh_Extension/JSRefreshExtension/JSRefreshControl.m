@@ -96,8 +96,9 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     } else {
         if (self.refreshView.refreshStatus == JSRefreshStatusPulling ) {
             NSLog(@"准备开始刷新");
-            
             [self beginRefresh];
+            
+            [self sendActionsForControlEvents:UIControlEventValueChanged];
         }
     }
     
@@ -112,12 +113,16 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     if (self.refreshView.refreshStatus == JSRefreshStatusWillRefresh) {
         return;
     }
+    
     // 设置自动以刷新控件视图状态
     self.refreshView.refreshStatus = JSRefreshStatusWillRefresh;
     // 设置表格内间距
     UIEdgeInsets inset = UIEdgeInsetsMake(self.superScrollView.contentInset.top + kJSRefreshControlCriticalValue, 0, 0, 0);
     self.superScrollView.contentInset = inset;
-    
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        
+    }];
     
 }
 // 停止刷新
@@ -125,10 +130,18 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     if (!self.superScrollView) {
         return;
     }
-    self.refreshView.refreshStatus = JSRefreshStatusNormal;
-    UIEdgeInsets inset = UIEdgeInsetsMake(self.superScrollView.contentInset.top - kJSRefreshControlCriticalValue, 0, 0, 0);
-    self.superScrollView.contentInset = inset;
-
+    if (self.refreshView.refreshStatus != JSRefreshStatusWillRefresh) {
+        return;
+    }
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.refreshView.refreshStatus = JSRefreshStatusNormal;
+        UIEdgeInsets inset = UIEdgeInsetsMake(self.superScrollView.contentInset.top - kJSRefreshControlCriticalValue, 0, 0, 0);
+        self.superScrollView.contentInset = inset;
+    } completion:^(BOOL finished) {
+        
+    }];
+    
 }
 
 - (void)dealloc {

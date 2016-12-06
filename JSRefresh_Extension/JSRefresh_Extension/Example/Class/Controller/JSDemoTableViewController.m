@@ -38,6 +38,8 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventValueChanged];
     
+    // 视图控制器一起动,就加载一次数据
+    [self loadData:self.refreshControl];
     
 }
 
@@ -45,7 +47,14 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
     
     [self.refreshControl beginRefresh];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSMutableArray *mArr = [NSMutableArray array];
+        NSNumber *lastNumber = self.data.lastObject;
+        for (int i = lastNumber.intValue + 1; i <= lastNumber.intValue + 10; i ++) {
+            [mArr addObject:@(i)];
+        }
+        self.data = [self.data arrayByAddingObjectsFromArray:mArr.copy];
         [self.refreshControl endRefresh];
+        [self.tableView reloadData];
     });
 }
 
