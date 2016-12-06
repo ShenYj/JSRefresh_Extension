@@ -8,13 +8,15 @@
 
 
 #import "JSRefresh.h"
+
+static NSString * const kKeyPath = @"contentOffset";
 // 自身高度
 static CGFloat const kRefreshControlToolHeight = 0.f;
 
 @interface JSRefresh ()
 
 //刷新控件的父视图
-@property (nonatomic,weak) UIScrollView *superView;
+@property (nonatomic,weak) UIScrollView *superScrollView;
 
 @end
 
@@ -38,16 +40,23 @@ static CGFloat const kRefreshControlToolHeight = 0.f;
 -(void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     if ([newSuperview isKindOfClass:[UIScrollView class]]) {
-        self.superView = (UIScrollView *)newSuperview;
-        [self.superView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+        self.superScrollView = (UIScrollView *)newSuperview;
+        [self.superScrollView addObserver:self forKeyPath:kKeyPath options:NSKeyValueObservingOptionNew context:nil];
         
     }
+}
+// 移除监听
+- (void)removeFromSuperview {
+    [self.superview removeObserver:self forKeyPath:kKeyPath];
+    [super removeFromSuperview];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     CGPoint point = [change[@"new"] CGPointValue];
-    CGFloat height = -(self.superView.contentInset.top + point.y);
-    self.frame = CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height);
+    CGFloat height = -(self.superScrollView.contentInset.top + point.y);
+    if (height >= 0) {
+        self.frame = CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height);
+    }
     
 }
 
@@ -59,8 +68,6 @@ static CGFloat const kRefreshControlToolHeight = 0.f;
     
 }
 
-- (void)dealloc {
-    [self.superView removeObserver:self forKeyPath:@"contentOffset"];
-}
+
 
 @end
