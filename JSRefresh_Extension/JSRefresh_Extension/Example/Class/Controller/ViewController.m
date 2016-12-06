@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "JSDemoTableViewController.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"展示列表" style:UIBarButtonItemStylePlain target:self action:@selector(clickRightBarButtonItem:)];
+    
+}
+
+- (void)clickRightBarButtonItem:(UIBarButtonItem *)sender {
+    JSDemoTableViewController *demoTableVC = [[JSDemoTableViewController alloc] init];
+    [self.navigationController pushViewController:demoTableVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
