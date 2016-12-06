@@ -36,7 +36,7 @@ static CGFloat const kRefreshControlToolHeight = 0.f;
 
 // 将要被添加到父视图中时
 -(void)willMoveToSuperview:(UIView *)newSuperview {
-    
+    [super willMoveToSuperview:newSuperview];
     if ([newSuperview isKindOfClass:[UIScrollView class]]) {
         self.superView = (UIScrollView *)newSuperview;
         [self.superView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
