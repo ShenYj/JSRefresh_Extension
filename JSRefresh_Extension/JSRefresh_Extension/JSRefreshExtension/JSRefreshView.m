@@ -140,7 +140,9 @@ static CGFloat const kRigthImageViewHeight = 60.f;
 - (UIImageView *)leftImageView {
     if (!_leftImageView) {
         _leftImageView = [[UIImageView alloc] init];
-        _leftImageView.image = [UIImage imageNamed:@"arrow"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"assets.bundle" ofType:nil];
+        NSBundle *assetsBundle = [NSBundle bundleWithPath:path];
+        _leftImageView.image = [UIImage imageNamed:@"arrow.png" inBundle:assetsBundle compatibleWithTraitCollection:nil];
     }
     return _leftImageView;
 }
