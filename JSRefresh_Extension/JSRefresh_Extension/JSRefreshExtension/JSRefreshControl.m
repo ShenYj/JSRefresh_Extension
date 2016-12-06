@@ -10,9 +10,10 @@
 #import "JSRefreshControl.h"
 #import "JSRefreshView.h"
 
-
+/** KVO监听KeyPath */
 static NSString * const kKeyPath = @"contentOffset";
-
+/** 下拉临界值 */
+static CGFloat const kJSRefreshControlCriticalValue = 60.f;
 
 @interface JSRefreshControl ()
 
@@ -74,9 +75,23 @@ static NSString * const kKeyPath = @"contentOffset";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     CGPoint point = [change[@"new"] CGPointValue];
     CGFloat height = -(self.superScrollView.contentInset.top + point.y);
-    if (height >= 0) {
-        self.frame = CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height);
+    
+    if(height < 0) return;
+    
+    self.frame = CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height);
+    
+    if (self.superScrollView.isDragging) {
+        
+        if (height > kJSRefreshControlCriticalValue) {
+            
+            NSLog(@"大于");
+        } else {
+            NSLog(@"小于");
+        }
+        
     }
+    
+    
     
 }
 // 开始刷新
@@ -94,7 +109,6 @@ static NSString * const kKeyPath = @"contentOffset";
 - (JSRefreshView *)refreshView {
     if (!_refreshView) {
         _refreshView = [[JSRefreshView alloc] init];
-        //_refreshView.frame = CGRectMake(0, 0, 200, 50);
     }
     return _refreshView;
 }

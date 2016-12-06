@@ -19,6 +19,8 @@ static NSString * const kDetailTextLabelContent = @"下拉刷新...";
 static CGFloat const kRefreshViewWidth = 200.f;
 static CGFloat const kRefreshViewHeight = 60.f;
 
+
+
 @interface JSRefreshView ()
 
 /** 左侧图片框 */
