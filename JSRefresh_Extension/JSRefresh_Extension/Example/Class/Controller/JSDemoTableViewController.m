@@ -13,6 +13,7 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
 
 @interface JSDemoTableViewController ()
 
+@property (nonatomic) NSArray *data;
 @property (nonatomic) JSRefreshControl *refreshControl;
 
 @end
@@ -29,18 +30,34 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    //self.automaticallyAdjustsScrollViewInsets = NO;
-    //self.tableView.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.bounds.size.height, 0, 0, 0);
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableView.backgroundColor = [UIColor colorWithRed:255/255.0 green:116/255.0 blue:103/255.0 alpha:1.0];
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:demoTableViewCellId];
     [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventValueChanged];
     
     
+}
+
+- (void)loadData:(JSRefreshControl *)refreshControl {
+    
+    [self.refreshControl beginRefresh];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.refreshControl endRefresh];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)dealloc {
+    NSLog(@"%s",__func__);
+}
+
 
 #pragma mark - Table view data source
 
@@ -49,7 +66,7 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 15;
+    return self.data.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -58,6 +75,19 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
     return cell;
 }
 
+
+- (NSArray *)data {
+    if (!_data) {
+        NSMutableArray *mArr = [NSMutableArray array];
+        for (int i = 0; i < 20; i++) {
+            @autoreleasepool {
+                [mArr addObject:@(i)];
+            }
+        }
+        _data = mArr.copy;
+    }
+    return _data;
+}
 
 /*
 // Override to support conditional editing of the table view.

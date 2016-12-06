@@ -72,6 +72,7 @@ static CGFloat const kRigthImageViewHeight = 60.f;
             break;
         case JSRefreshStatusWillRefresh:
             self.descriptionLabel.text = @"正在刷新中...";
+            self.leftImageView.hidden = YES;
             [self.indicatorView startAnimating];
             
             break;

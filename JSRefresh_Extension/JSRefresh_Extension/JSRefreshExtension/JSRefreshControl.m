@@ -37,8 +37,9 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
 
 // 准备视图
 - (void)prepareRefreshView {
-    self.clipsToBounds = YES;
-    self.backgroundColor = [UIColor colorWithRed:255/255.0 green:116/255.0 blue:103/255.0 alpha:1.0];
+    //self.clipsToBounds = YES;
+    //self.backgroundColor = [UIColor colorWithRed:255/255.0 green:116/255.0 blue:103/255.0 alpha:1.0];
+    self.backgroundColor = [UIColor clearColor];
     self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
     
     [self addSubview:self.refreshView];
@@ -95,7 +96,8 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     } else {
         if (self.refreshView.refreshStatus == JSRefreshStatusPulling ) {
             NSLog(@"准备开始刷新");
-            self.refreshView.refreshStatus = JSRefreshStatusWillRefresh;
+            
+            [self beginRefresh];
         }
     }
     
@@ -104,11 +106,33 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
 }
 // 开始刷新
 - (void)beginRefresh {
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    if (!self.superScrollView) {
+        return;
+    }
+    if (self.refreshView.refreshStatus == JSRefreshStatusWillRefresh) {
+        return;
+    }
+    // 设置自动以刷新控件视图状态
+    self.refreshView.refreshStatus = JSRefreshStatusWillRefresh;
+    // 设置表格内间距
+    UIEdgeInsets inset = UIEdgeInsetsMake(self.superScrollView.contentInset.top + kJSRefreshControlCriticalValue, 0, 0, 0);
+    self.superScrollView.contentInset = inset;
+    
+    
 }
 // 停止刷新
 - (void)endRefresh {
-    
+    if (!self.superScrollView) {
+        return;
+    }
+    self.refreshView.refreshStatus = JSRefreshStatusNormal;
+    UIEdgeInsets inset = UIEdgeInsetsMake(self.superScrollView.contentInset.top - kJSRefreshControlCriticalValue, 0, 0, 0);
+    self.superScrollView.contentInset = inset;
+
+}
+
+- (void)dealloc {
+    NSLog(@"%s",__func__);
 }
 
 #pragma mark
