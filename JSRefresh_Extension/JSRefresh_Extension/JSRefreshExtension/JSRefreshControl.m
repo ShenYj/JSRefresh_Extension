@@ -38,7 +38,7 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
 // 准备视图
 - (void)prepareRefreshView {
     self.clipsToBounds = YES;
-    self.backgroundColor = [UIColor orangeColor];
+    self.backgroundColor = [UIColor colorWithRed:255/255.0 green:116/255.0 blue:103/255.0 alpha:1.0];
     self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
     
     [self addSubview:self.refreshView];

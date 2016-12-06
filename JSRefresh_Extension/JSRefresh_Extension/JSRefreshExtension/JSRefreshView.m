@@ -47,13 +47,28 @@ static CGFloat const kRigthImageViewHeight = 60.f;
 
 - (void)setRefreshStatus:(JSRefreshStatus)refreshStatus {
     _refreshStatus = refreshStatus;
-    
+    /**
+     1.iOS系统中UIView封装的旋转动画,默认顺时针旋转(使用-M_PI也是一样)
+     2.就近原则
+     */
     switch (refreshStatus) {
         case JSRefreshStatusNormal:
-            self.descriptionLabel.text = @"继续使劲拉...";
+            {
+                self.descriptionLabel.text = @"继续使劲拉...";
+                [UIView animateWithDuration:0.25 animations:^{
+                    
+                    self.leftImageView.transform = CGAffineTransformIdentity;
+                }];
+            }
             break;
         case JSRefreshStatusPulling:
-            self.descriptionLabel.text = @"松手将刷新...";
+            {
+                self.descriptionLabel.text = @"松手将刷新...";
+                [UIView animateWithDuration:0.25 animations:^{
+                    // 就近原则:同方向旋转,可以调整一个非常小的数字,-0.001,使其小于180°,返回的时候根据就近原则,按照原路返回
+                    self.leftImageView.transform = CGAffineTransformMakeRotation(M_PI-0.001);
+                }];
+            }
             break;
         case JSRefreshStatusWillRefresh:
             self.descriptionLabel.text = @"正在刷新中...";
