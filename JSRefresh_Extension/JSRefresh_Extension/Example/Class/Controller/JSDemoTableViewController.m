@@ -7,13 +7,13 @@
 //
 
 #import "JSDemoTableViewController.h"
-#import "JSRefresh.h"
+#import "JSRefreshControl.h"
 
 static NSString * const demoTableViewCellId = @"demoTableViewCellId";
 
 @interface JSDemoTableViewController ()
 
-@property (nonatomic) JSRefresh *refreshControl;
+@property (nonatomic) JSRefreshControl *refreshControl;
 
 @end
 
@@ -105,9 +105,9 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
 
 #pragma mark
 #pragma mark - lazy
-- (JSRefresh *)refreshControl {
+- (JSRefreshControl *)refreshControl {
     if (!_refreshControl) {
-        _refreshControl = [[JSRefresh alloc] init];
+        _refreshControl = [[JSRefreshControl alloc] init];
     }
     return _refreshControl;
 }

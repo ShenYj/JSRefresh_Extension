@@ -1,5 +1,5 @@
 //
-//  JSRefresh.h
+//  JSRefreshView.h
 //  JSRefresh_Extension
 //
 //  Created by ShenYj on 2016/12/6.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JSRefresh : UIControl
-
-- (void)beginRefresh;
-
-- (void)endRefresh;
+@interface JSRefreshView : UIView
 
 @end
