@@ -16,10 +16,11 @@ static CGFloat const kLeftImageViewHeight = 40.f;
 /** 文本描述内容 */
 static NSString * const kDetailTextLabelContent = @"下拉刷新...";
 /** 下拉刷新视图(JSRefreshView)自身宽高参数 */
-static CGFloat const kRefreshViewWidth = 200.f;
+static CGFloat const kRefreshViewWidth = 220.f;
 static CGFloat const kRefreshViewHeight = 60.f;
-
-
+/** 右侧图片框的宽高 */
+static CGFloat const kRightImageViewWidth = 60.f;
+static CGFloat const kRigthImageViewHeight = 60.f;
 
 @interface JSRefreshView ()
 
@@ -44,6 +45,25 @@ static CGFloat const kRefreshViewHeight = 60.f;
     return self;
 }
 
+- (void)setRefreshStatus:(JSRefreshStatus)refreshStatus {
+    _refreshStatus = refreshStatus;
+    
+    switch (refreshStatus) {
+        case JSRefreshStatusNormal:
+            
+            break;
+        case JSRefreshStatusPulling:
+            
+            break;
+        case JSRefreshStatusWillRefresh:
+            [self.indicatorView startAnimating];
+            
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)prepareRefreshView {
     
     self.frame = CGRectMake(0, 0, kRefreshViewWidth, kRefreshViewHeight);
@@ -51,10 +71,10 @@ static CGFloat const kRefreshViewHeight = 60.f;
     [self addSubview:self.leftImageView];
     [self addSubview:self.descriptionLabel];
     [self addSubview:self.indicatorView];
-    //[self addSubview:self.rightImageView];
-    [self.indicatorView startAnimating];
+    [self addSubview:self.rightImageView];
     
-    
+    // 设置刷新控件初始状态
+    self.refreshStatus = JSRefreshStatusNormal;
 }
 
 - (void)layoutSubviews {
@@ -83,6 +103,15 @@ static CGFloat const kRefreshViewHeight = 60.f;
     [self addConstraint:indicatorViewCenterX];
     NSLayoutConstraint *indicatorViewCenterY = [NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.leftImageView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
     [self addConstraint:indicatorViewCenterY];
+    
+    NSLayoutConstraint *rightImageViewLeftConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.descriptionLabel attribute:NSLayoutAttributeRight multiplier:1 constant:kLeftMargin];
+    [self addConstraint:rightImageViewLeftConstraint];
+    NSLayoutConstraint *rightImageViewCenterYConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.leftImageView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    [self addConstraint:rightImageViewCenterYConstraint];
+    NSLayoutConstraint *rightImageViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:kRightImageViewWidth];
+    [self addConstraint:rightImageViewWidthConstraint];
+    NSLayoutConstraint *rightImageViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:kRigthImageViewHeight];
+    [self addConstraint:rightImageViewHeightConstraint];
     
 }
 
@@ -117,6 +146,9 @@ static CGFloat const kRefreshViewHeight = 60.f;
 - (UIImageView *)rightImageView {
     if (!_rightImageView) {
         _rightImageView = [[UIImageView alloc] init];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"assets.bundle" ofType:nil];
+        NSBundle *assetsBundle = [NSBundle bundleWithPath:path];
+        _rightImageView.image = [UIImage imageNamed:@"refreshImg.gif" inBundle:assetsBundle compatibleWithTraitCollection:nil];
     }
     return _rightImageView;
 }

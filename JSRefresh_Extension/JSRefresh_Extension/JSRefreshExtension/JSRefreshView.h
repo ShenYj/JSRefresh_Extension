@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+/** 刷新状态 */
+typedef NS_ENUM(NSUInteger, JSRefreshStatus) {
+    JSRefreshStatusNormal,
+    JSRefreshStatusPulling,
+    JSRefreshStatusWillRefresh,
+};
+
 @interface JSRefreshView : UIView
+/** 刷新控件的状态 */
+@property (nonatomic,assign) JSRefreshStatus refreshStatus;
 
 @end

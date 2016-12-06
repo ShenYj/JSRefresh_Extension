@@ -22,6 +22,7 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
 /** 自定义视图 */
 @property (nonatomic,strong) JSRefreshView *refreshView;
 
+
 @end
 
 @implementation JSRefreshControl
@@ -42,11 +43,12 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     
     [self addSubview:self.refreshView];
     self.refreshView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     NSLayoutConstraint *refreshViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
     [self addConstraint:refreshViewBottomConstraint];
     NSLayoutConstraint *refreshViewCenterXConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
@@ -82,13 +84,19 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     
     if (self.superScrollView.isDragging) {
         
-        if (height > kJSRefreshControlCriticalValue) {
-            
-            NSLog(@"大于");
-        } else {
-            NSLog(@"小于");
+        if (height > kJSRefreshControlCriticalValue && self.refreshView.refreshStatus == JSRefreshStatusNormal) {
+            NSLog(@"大于临界值");
+            self.refreshView.refreshStatus = JSRefreshStatusPulling;
+        } else if (height <= kJSRefreshControlCriticalValue && self.refreshView.refreshStatus == JSRefreshStatusPulling ){
+            NSLog(@"小于临界值");
+            self.refreshView.refreshStatus = JSRefreshStatusNormal;
         }
         
+    } else {
+        if (self.refreshView.refreshStatus == JSRefreshStatusPulling ) {
+            NSLog(@"准备开始刷新");
+            self.refreshView.refreshStatus = JSRefreshStatusNormal;
+        }
     }
     
     
