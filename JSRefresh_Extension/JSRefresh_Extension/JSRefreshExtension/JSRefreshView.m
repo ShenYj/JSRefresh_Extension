@@ -151,7 +151,7 @@ static CGFloat const kRefreshViewHeight = 60.f;
     if (!_descriptionLabel) {
         _descriptionLabel = [[UILabel alloc] init];
         _descriptionLabel.font = [UIFont systemFontOfSize:16];
-        _descriptionLabel.textColor = [UIColor whiteColor];
+        _descriptionLabel.textColor = [UIColor blackColor];
         _descriptionLabel.textAlignment = NSTextAlignmentCenter;
         _descriptionLabel.text = kDetailTextLabelContent;
         [_descriptionLabel sizeToFit];
@@ -169,7 +169,7 @@ static CGFloat const kRefreshViewHeight = 60.f;
         _backgroundImageView = [[UIImageView alloc] init];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"assets.bundle" ofType:nil];
         NSBundle *assetsBundle = [NSBundle bundleWithPath:path];
-        UIImage *image = [UIImage imageNamed:@"backgroundImage" inBundle:assetsBundle compatibleWithTraitCollection:nil];
+        UIImage *image = [UIImage imageNamed:@"background.jpg" inBundle:assetsBundle compatibleWithTraitCollection:nil];
         CGFloat imageNewHeight = [UIScreen mainScreen].bounds.size.width * image.size.height / image.size.width;
         CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, imageNewHeight);
         UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
