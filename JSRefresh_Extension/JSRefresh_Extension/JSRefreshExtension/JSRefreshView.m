@@ -18,9 +18,7 @@ static NSString * const kDetailTextLabelContent = @"下拉刷新...";
 /** 下拉刷新视图(JSRefreshView)自身宽高参数 */
 static CGFloat const kRefreshViewWidth = 220.f;
 static CGFloat const kRefreshViewHeight = 60.f;
-/** 右侧图片框的宽高 */
-static CGFloat const kRightImageViewWidth = 60.f;
-static CGFloat const kRigthImageViewHeight = 60.f;
+
 
 @interface JSRefreshView ()
 
@@ -31,7 +29,7 @@ static CGFloat const kRigthImageViewHeight = 60.f;
 /** 指示器 */
 @property (nonatomic,strong) UIActivityIndicatorView *indicatorView;
 /** 右侧图片框 */
-@property (nonatomic,strong) UIImageView *rightImageView;
+@property (nonatomic,strong) UIImageView *backgroundImageView;
 
 @end
 
@@ -86,10 +84,10 @@ static CGFloat const kRigthImageViewHeight = 60.f;
     
     self.frame = CGRectMake(0, 0, kRefreshViewWidth, kRefreshViewHeight);
     self.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.backgroundImageView];
     [self addSubview:self.leftImageView];
     [self addSubview:self.descriptionLabel];
     [self addSubview:self.indicatorView];
-    [self addSubview:self.rightImageView];
     
     // 设置刷新控件初始状态
     self.refreshStatus = JSRefreshStatusNormal;
@@ -98,10 +96,20 @@ static CGFloat const kRigthImageViewHeight = 60.f;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.leftImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.rightImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *backgroundImageViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0];;
+    [self addConstraint:backgroundImageViewBottomConstraint];
+    NSLayoutConstraint *backgroundImageViewCenterXConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    [self addConstraint:backgroundImageViewCenterXConstraint];
+    NSLayoutConstraint *backgrouundImageViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:[UIScreen mainScreen].bounds.size.width];
+    [self addConstraint:backgrouundImageViewWidthConstraint];
+    NSLayoutConstraint *backgroundImageViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.backgroundImageView.bounds.size.height];
+    [self addConstraint:backgroundImageViewHeightConstraint];
+    
     
     NSLayoutConstraint *leftImageViewLeftConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:kLeftMargin];
     [self addConstraint:leftImageViewLeftConstraint];
@@ -122,14 +130,7 @@ static CGFloat const kRigthImageViewHeight = 60.f;
     NSLayoutConstraint *indicatorViewCenterY = [NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.leftImageView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
     [self addConstraint:indicatorViewCenterY];
     
-    NSLayoutConstraint *rightImageViewLeftConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.descriptionLabel attribute:NSLayoutAttributeRight multiplier:1 constant:kLeftMargin];
-    [self addConstraint:rightImageViewLeftConstraint];
-    NSLayoutConstraint *rightImageViewCenterYConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.leftImageView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-    [self addConstraint:rightImageViewCenterYConstraint];
-    NSLayoutConstraint *rightImageViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:kRightImageViewWidth];
-    [self addConstraint:rightImageViewWidthConstraint];
-    NSLayoutConstraint *rightImageViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.rightImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:kRigthImageViewHeight];
-    [self addConstraint:rightImageViewHeightConstraint];
+    
     
 }
 
@@ -150,7 +151,7 @@ static CGFloat const kRigthImageViewHeight = 60.f;
     if (!_descriptionLabel) {
         _descriptionLabel = [[UILabel alloc] init];
         _descriptionLabel.font = [UIFont systemFontOfSize:16];
-        _descriptionLabel.textColor = [UIColor blackColor];
+        _descriptionLabel.textColor = [UIColor whiteColor];
         _descriptionLabel.textAlignment = NSTextAlignmentCenter;
         _descriptionLabel.text = kDetailTextLabelContent;
         [_descriptionLabel sizeToFit];
@@ -163,14 +164,22 @@ static CGFloat const kRigthImageViewHeight = 60.f;
     }
     return _indicatorView;
 }
-- (UIImageView *)rightImageView {
-    if (!_rightImageView) {
-        _rightImageView = [[UIImageView alloc] init];
+- (UIImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] init];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"assets.bundle" ofType:nil];
         NSBundle *assetsBundle = [NSBundle bundleWithPath:path];
-        _rightImageView.image = [UIImage imageNamed:@"refreshImg.gif" inBundle:assetsBundle compatibleWithTraitCollection:nil];
+        UIImage *image = [UIImage imageNamed:@"backgroundImage" inBundle:assetsBundle compatibleWithTraitCollection:nil];
+        CGFloat imageNewHeight = [UIScreen mainScreen].bounds.size.width * image.size.height / image.size.width;
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, imageNewHeight);
+        UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
+        [image drawInRect:rect];
+        UIImage *getImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        _backgroundImageView.image = getImage;
+        [_backgroundImageView sizeToFit];
     }
-    return _rightImageView;
+    return _backgroundImageView;
 }
 
 @end

@@ -31,7 +31,7 @@ static NSString * const demoTableViewCellId = @"demoTableViewCellId";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView.backgroundColor = [UIColor colorWithRed:255/255.0 green:116/255.0 blue:103/255.0 alpha:1.0];
+    //self.tableView.backgroundColor = [UIColor colorWithRed:255/255.0 green:116/255.0 blue:103/255.0 alpha:1.0];
     self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:demoTableViewCellId];
