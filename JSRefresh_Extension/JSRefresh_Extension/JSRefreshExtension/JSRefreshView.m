@@ -101,33 +101,115 @@ static CGFloat const kRefreshViewHeight = 60.f;
     self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSLayoutConstraint *backgroundImageViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0];;
+    NSLayoutConstraint *backgroundImageViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView
+                                                                                           attribute:NSLayoutAttributeBottom
+                                                                                           relatedBy:NSLayoutRelationEqual
+                                                                                              toItem:self
+                                                                                           attribute:NSLayoutAttributeBottom
+                                                                                          multiplier:1
+                                                                                            constant:0
+                                                               ];
     [self addConstraint:backgroundImageViewBottomConstraint];
-    NSLayoutConstraint *backgroundImageViewCenterXConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *backgroundImageViewCenterXConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView
+                                                                                            attribute:NSLayoutAttributeCenterX
+                                                                                            relatedBy:NSLayoutRelationEqual
+                                                                                               toItem:self
+                                                                                            attribute:NSLayoutAttributeCenterX
+                                                                                           multiplier:1
+                                                                                             constant:0
+                                                                ];
     [self addConstraint:backgroundImageViewCenterXConstraint];
-    NSLayoutConstraint *backgrouundImageViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:[UIScreen mainScreen].bounds.size.width];
+    NSLayoutConstraint *backgrouundImageViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView
+                                                                                           attribute:NSLayoutAttributeWidth
+                                                                                           relatedBy:NSLayoutRelationEqual
+                                                                                              toItem:nil
+                                                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                                                          multiplier:1
+                                                                                            constant:[UIScreen mainScreen].bounds.size.width
+                                                               ];
     [self addConstraint:backgrouundImageViewWidthConstraint];
-    NSLayoutConstraint *backgroundImageViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.backgroundImageView.bounds.size.height];
+    NSLayoutConstraint *backgroundImageViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView
+                                                                                           attribute:NSLayoutAttributeHeight
+                                                                                           relatedBy:NSLayoutRelationEqual
+                                                                                              toItem:nil
+                                                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                                                          multiplier:1
+                                                                                            constant:self.backgroundImageView.bounds.size.height
+                                                               ];
     [self addConstraint:backgroundImageViewHeightConstraint];
     
     
-    NSLayoutConstraint *leftImageViewLeftConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:kLeftMargin];
+    NSLayoutConstraint *leftImageViewLeftConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView
+                                                                                   attribute:NSLayoutAttributeLeft
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:self
+                                                                                   attribute:NSLayoutAttributeLeft
+                                                                                  multiplier:1
+                                                                                    constant:kLeftMargin
+                                                       ];
     [self addConstraint:leftImageViewLeftConstraint];
-    NSLayoutConstraint *leftImageViewCenterYConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *leftImageViewCenterYConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView
+                                                                                      attribute:NSLayoutAttributeCenterY
+                                                                                      relatedBy:NSLayoutRelationEqual
+                                                                                         toItem:self
+                                                                                      attribute:NSLayoutAttributeCenterY
+                                                                                     multiplier:1
+                                                                                       constant:0
+                                                          ];
     [self addConstraint:leftImageViewCenterYConstraint];
-    NSLayoutConstraint *leftImageViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:kLeftImageViewWidth];
+    NSLayoutConstraint *leftImageViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView
+                                                                                    attribute:NSLayoutAttributeWidth
+                                                                                    relatedBy:NSLayoutRelationEqual
+                                                                                       toItem:nil
+                                                                                    attribute:NSLayoutAttributeNotAnAttribute
+                                                                                   multiplier:1
+                                                                                     constant:kLeftImageViewWidth];
     [self addConstraint:leftImageViewWidthConstraint];
-    NSLayoutConstraint *leftImageViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:kLeftImageViewHeight];
+    NSLayoutConstraint *leftImageViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.leftImageView
+                                                                                     attribute:NSLayoutAttributeHeight
+                                                                                     relatedBy:NSLayoutRelationEqual
+                                                                                        toItem:nil
+                                                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                                                    multiplier:1
+                                                                                      constant:kLeftImageViewHeight
+                                                         ];
     [self addConstraint:leftImageViewHeightConstraint];
     
-    NSLayoutConstraint *descriptionLabelLeftConstraint = [NSLayoutConstraint constraintWithItem:self.descriptionLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.leftImageView attribute:NSLayoutAttributeRight multiplier:1 constant:kLeftMargin];
+    NSLayoutConstraint *descriptionLabelLeftConstraint = [NSLayoutConstraint constraintWithItem:self.descriptionLabel
+                                                                                      attribute:NSLayoutAttributeLeft
+                                                                                      relatedBy:NSLayoutRelationEqual
+                                                                                         toItem:self.leftImageView
+                                                                                      attribute:NSLayoutAttributeRight
+                                                                                     multiplier:1 constant:kLeftMargin
+                                                          ];
     [self addConstraint:descriptionLabelLeftConstraint];
-    NSLayoutConstraint *descriptionLabelCenterYConstrait = [NSLayoutConstraint constraintWithItem:self.descriptionLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *descriptionLabelCenterYConstrait = [NSLayoutConstraint constraintWithItem:self.descriptionLabel
+                                                                                        attribute:NSLayoutAttributeCenterY
+                                                                                        relatedBy:NSLayoutRelationEqual
+                                                                                           toItem:self
+                                                                                        attribute:NSLayoutAttributeCenterY
+                                                                                       multiplier:1
+                                                                                         constant:0
+                                                            ];
     [self addConstraint:descriptionLabelCenterYConstrait];
     
-    NSLayoutConstraint *indicatorViewCenterX = [NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.leftImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *indicatorViewCenterX = [NSLayoutConstraint constraintWithItem:self.indicatorView
+                                                                            attribute:NSLayoutAttributeCenterX
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:self.leftImageView
+                                                                            attribute:NSLayoutAttributeCenterX
+                                                                           multiplier:1
+                                                                             constant:0
+                                                ];
     [self addConstraint:indicatorViewCenterX];
-    NSLayoutConstraint *indicatorViewCenterY = [NSLayoutConstraint constraintWithItem:self.indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.leftImageView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *indicatorViewCenterY = [NSLayoutConstraint constraintWithItem:self.indicatorView
+                                                                            attribute:NSLayoutAttributeCenterY
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:self.leftImageView
+                                                                            attribute:NSLayoutAttributeCenterY
+                                                                           multiplier:1
+                                                                             constant:0
+                                                ];
     [self addConstraint:indicatorViewCenterY];
     
     
@@ -161,6 +243,7 @@ static CGFloat const kRefreshViewHeight = 60.f;
 - (UIActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {
         _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView.color = [UIColor purpleColor];
     }
     return _indicatorView;
 }

@@ -6,6 +6,9 @@
 //  Copyright © 2016年 ShenYj. All rights reserved.
 //
 
+/**
+    负责自定义刷新控件的视图界面展示
+ */
 #import <UIKit/UIKit.h>
 
 /** 刷新状态 */

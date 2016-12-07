@@ -50,13 +50,41 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    NSLayoutConstraint *refreshViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+    NSLayoutConstraint *refreshViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView
+                                                                                   attribute:NSLayoutAttributeBottom
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:self
+                                                                                   attribute:NSLayoutAttributeBottom
+                                                                                  multiplier:1
+                                                                                    constant:0
+                                                       ];
     [self addConstraint:refreshViewBottomConstraint];
-    NSLayoutConstraint *refreshViewCenterXConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *refreshViewCenterXConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView
+                                                                                    attribute:NSLayoutAttributeCenterX
+                                                                                    relatedBy:NSLayoutRelationEqual
+                                                                                       toItem:self
+                                                                                    attribute:NSLayoutAttributeCenterX
+                                                                                   multiplier:1
+                                                                                     constant:0
+                                                        ];
     [self addConstraint:refreshViewCenterXConstraint];
-    NSLayoutConstraint *refreshViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.refreshView.bounds.size.height];
+    NSLayoutConstraint *refreshViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView
+                                                                                   attribute:NSLayoutAttributeHeight
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:nil
+                                                                                   attribute:NSLayoutAttributeNotAnAttribute
+                                                                                  multiplier:1
+                                                                                    constant:self.refreshView.bounds.size.height
+                                                       ];
     [self addConstraint:refreshViewHeightConstraint];
-    NSLayoutConstraint *refreshViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.refreshView.bounds.size.width];
+    NSLayoutConstraint *refreshViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.refreshView
+                                                                                  attribute:NSLayoutAttributeWidth
+                                                                                  relatedBy:NSLayoutRelationEqual
+                                                                                     toItem:nil
+                                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                                 multiplier:1
+                                                                                   constant:self.refreshView.bounds.size.width
+                                                      ];
     [self addConstraint:refreshViewWidthConstraint];
 }
 
