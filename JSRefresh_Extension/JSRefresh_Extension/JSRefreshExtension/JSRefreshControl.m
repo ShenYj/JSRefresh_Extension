@@ -147,10 +147,6 @@ static CGFloat const kJSRefreshControlCriticalValue = 60.f;
     // 设置表格内间距
     UIEdgeInsets inset = UIEdgeInsetsMake(self.superScrollView.contentInset.top + kJSRefreshControlCriticalValue, 0, 0, 0);
     self.superScrollView.contentInset = inset;
-    [UIView animateWithDuration:0.5 animations:^{
-    } completion:^(BOOL finished) {
-        
-    }];
     
 }
 // 停止刷新
